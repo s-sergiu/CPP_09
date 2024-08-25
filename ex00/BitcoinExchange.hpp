@@ -5,10 +5,10 @@
 class BitcoinExchange {
 	public:
 		BitcoinExchange(void);
-		BitcoinExchange(const BitcoinExchange &src);
-		BitcoinExchange operator = (const BitcoinExchange &src);
+		BitcoinExchange(const BitcoinExchange &);
+		BitcoinExchange &operator = (const BitcoinExchange &);
 		~BitcoinExchange(void);
-		void parse(char **argv);
+		void parse(char **);
 };
 
 #endif
