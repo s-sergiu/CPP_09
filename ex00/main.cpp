@@ -1,7 +1,6 @@
 
 #include "BitcoinExchange.hpp"
 #include <iostream>
-#include <exception>
 
 int main(int argc, char **argv) {
 	(void)argv;

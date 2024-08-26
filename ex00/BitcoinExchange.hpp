@@ -2,6 +2,9 @@
 #ifndef BITCOIN_HPP
 #define BITCOIN_HPP
 
+#include <stdexcept>
+#include <fstream>
+
 class BitcoinExchange {
 	public:
 		BitcoinExchange(void);
