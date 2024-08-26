@@ -6,12 +6,14 @@
 #include <fstream>
 
 class BitcoinExchange {
-	public:
-		BitcoinExchange(void);
+	private:
 		BitcoinExchange(const BitcoinExchange &);
 		BitcoinExchange &operator = (const BitcoinExchange &);
 		~BitcoinExchange(void);
-		void parse(char **);
+		void checkFileFormatting(std::fstream &) const;
+	public:
+		BitcoinExchange(void);
+		void parse(char *);
 };
 
 #endif

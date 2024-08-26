@@ -7,12 +7,11 @@ int main(int argc, char **argv) {
 	BitcoinExchange obj;
 	if (argc == 2)	
 		try {
-			obj.parse(argv);	
+			obj.parse(argv[1]);	
 		} catch(std::exception &e) {
 			std::cerr<<"Error: "<<e.what()<<std::endl;
 		}
-	else {
-		std::cerr<<"Invalid number of arguments!"<<std::endl;
-	}
+	else 
+		std::cerr<<"Usage: ./btc file"<<std::endl;
 	return 0;
 }

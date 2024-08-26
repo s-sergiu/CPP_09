@@ -23,17 +23,13 @@ BitcoinExchange::~BitcoinExchange(void) {
 
 // Class functions 
 
-void BitcoinExchange::parse(char **argv) {
-	(void)argv;
+void BitcoinExchange::parse(char *argv) {
+
 	std::fstream file;
-	file.open(argv[1], std::fstream::in);
-	std::cout<<argv[1]<<std::endl;
-	if (!file.is_open()) {
+	file.open(argv, std::fstream::in);
+
+	if (file.is_open())
+		checkFileFormatting(file);	
+	else 
 		throw std::runtime_error("Could not open file for reading!");
-	}
-	else {
-		std::cout<<"file open"<<std::endl;
-		std::cout<<"file contents: "<<file.rdbuf();
-		file.close();
-	}
 }
