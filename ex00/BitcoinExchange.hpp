@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <set>
 #include <fstream>
+#include <ctime>
 
 class BitcoinExchange {
 		std::set<int> input;
@@ -14,6 +15,10 @@ class BitcoinExchange {
 		void checkFileFormatting(std::fstream &) const;
 		void checkFileHeader(std::fstream &) const;
 		void checkFileValues(std::string &) const;
+		void checkDateFormat(std::string &) const;
+		void checkDay(struct tm &) const;
+		void checkYear(struct tm &) const;
+		void checkMonth(struct tm &) const;
 	public:
 		BitcoinExchange(void);
 		~BitcoinExchange(void);

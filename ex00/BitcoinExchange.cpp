@@ -57,6 +57,36 @@ void BitcoinExchange::checkFileHeader(std::fstream &file) const {
 }
 
 void BitcoinExchange::checkFileValues(std::string &str) const {
-	if (!str.empty())
-		std::cout<<"line: "<<str<<std::endl;
+	std::string chunk;
+	struct tm tp;
+
+	if (!str.empty()) {
+		chunk = str.substr(0, str.find('|'));
+		strptime(&chunk[0] ,"%Y-%m-%d", &tp);
+		tp.tm_year += 1900;
+		tp.tm_mday += 1;
+		std::cout<<chunk<<std::endl;
+		std::cout<<"year: "<<tp.tm_year<<std::endl;
+		std::cout<<"mon: "<<tp.tm_mon<<std::endl;
+		std::cout<<"day: "<<tp.tm_mday<<std::endl;
+		checkYear(tp);
+		checkMonth(tp);
+		checkDay(tp);
+	}
+
+}
+
+void BitcoinExchange::checkMonth(struct tm &tp) const {
+	if (tp.tm_mon < 1 || tp.tm_mon > 12)
+		throw std::runtime_error("Incorrect month!");
+}
+
+void BitcoinExchange::checkDay(struct tm &tp) const {
+	if (tp.tm_mday < 1 || tp.tm_mday > 31)
+		throw std::runtime_error("Incorrect day!");
+}
+
+void BitcoinExchange::checkYear(struct tm &tp) const {
+	if (tp.tm_year < 1900 || tp.tm_year > 2024)
+		throw std::runtime_error("Incorrect year!");
 }
