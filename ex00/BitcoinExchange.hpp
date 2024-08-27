@@ -6,6 +6,7 @@
 #include <set>
 #include <fstream>
 #include <ctime>
+#include <cstdlib>
 
 class BitcoinExchange {
 		std::set<int> input;
@@ -14,12 +15,13 @@ class BitcoinExchange {
 		BitcoinExchange &operator = (const BitcoinExchange &);
 		void checkFileFormatting(std::fstream &) const;
 		void checkFileHeader(std::fstream &) const;
-		void checkFileValues(std::string &) const;
+		void checkDateValues(std::string &) const;
+		void checkNumericValues(std::string &) const;
 		void checkDateFormat(std::string &) const;
 		void convertReadableTime(struct tm *) const;
-		void checkDay(struct tm &) const;
-		void checkYear(struct tm &) const;
-		void checkMonth(struct tm &) const;
+		void checkDay(struct tm &, std::string &) const;
+		void checkYear(struct tm &, std::string &) const;
+		void checkMonth(struct tm &, std::string &) const;
 	public:
 		BitcoinExchange(void);
 		~BitcoinExchange(void);
