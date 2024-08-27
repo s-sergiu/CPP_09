@@ -16,6 +16,7 @@ class BitcoinExchange {
 		void checkFileHeader(std::fstream &) const;
 		void checkFileValues(std::string &) const;
 		void checkDateFormat(std::string &) const;
+		void convertReadableTime(struct tm *) const;
 		void checkDay(struct tm &) const;
 		void checkYear(struct tm &) const;
 		void checkMonth(struct tm &) const;
