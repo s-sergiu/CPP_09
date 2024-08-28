@@ -34,20 +34,43 @@ void BitcoinExchange::parse(char *argv) {
 		throw std::runtime_error("Could not open file for reading!");
 }
 
-void BitcoinExchange::checkFileFormatting(std::fstream &file) const {
+void BitcoinExchange::loadCSVToData(std::fstream &file) {
+	std::string str, str_value;
+	double value;
 
+	checkCSVHeader(file);
+	while(std::getline(file, str)) {
+		str_value = str.substr(str.find(',') + 1 , str.size());
+		value = std::strtof(&str_value[0], NULL);
+		this->data[str.substr(0, str.find(','))] = value;
+	}
+}
+
+void BitcoinExchange::checkFileFormatting(std::fstream &file) {
 	std::string str;
+	int flag = 0;
 
 	checkFileHeader(file);
 	while(std::getline(file, str)) {
-		checkDateValues(str);
-		checkNumericValues(str);
+		checkDateValues(str,flag);
+		if (!flag)
+			checkNumericValues(str);
+		flag = 0;
 	}
+}
+
+void BitcoinExchange::checkCSVHeader(std::fstream &file) const {
+	std::string str;
+	file >> str;
+	if (str != "date,exchange_rate")
+		throw std::runtime_error("Incorrect header format for csv file");
 }
 
 void BitcoinExchange::checkFileHeader(std::fstream &file) const {
 	std::string str;
 	file >> str;
+	if (str == "date,exchange_rate")
+		return ;
 	if (str != "date")
 		throw std::runtime_error("Incorrect header format for input file");
 	file >> str;
@@ -58,14 +81,12 @@ void BitcoinExchange::checkFileHeader(std::fstream &file) const {
 		throw std::runtime_error("Incorrect header format for input file");
 }
 
-void BitcoinExchange::checkDateValues(std::string &str) const {
+void BitcoinExchange::checkDateValues(std::string &str, int &flag) const {
 	std::string chunk;
 	double date[3];
-	int flag = 0;
 
 	if (!str.empty()) {
 		chunk = str.substr(0, str.find('|'));
-		std::cout<<chunk<<std::endl;
 		converDateToDouble(date, chunk);
 		checkYear(date, flag);
 		if (!flag)
@@ -76,18 +97,27 @@ void BitcoinExchange::checkDateValues(std::string &str) const {
 
 }
 
-void BitcoinExchange::checkNumericValues(std::string &str) const {
-	std::string chunk;
+void BitcoinExchange::checkNumericValues(std::string &str) {
+	std::string chunk, date;
 	char *test = NULL;
 	double number;
+	char buffer[11];
 
 	if (!str.empty()) {
+		date = str.substr(0 , str.find('|'));
 		chunk = str.substr(str.find('|') + 1, str.size());
 		number = std::strtod(chunk.c_str(), &test);
-		if (number > 1000)
+		if (number > 1000) {
 			std::cerr<<"Error: too large a number."<<std::endl;
-		if (number < 0)
+			return ;
+		}
+		if (number < 0) {
 			std::cerr<<"Error: not a positive number."<<std::endl;
+			return ;
+		}
+		date.copy(buffer,10, 0);
+		double rate = number * data[buffer];
+		std::cout<<date<<"=> "<<number<<" = "<<rate<<std::endl;
 	}
 }
 
@@ -124,10 +154,18 @@ void BitcoinExchange::converDateToDouble(double date[3], std::string &str) const
 
 	slice = str.substr(0, str.find('-'));
 	date[0] = std::strtod(&slice[0], NULL);
-
 	slice = str.substr(str.find('-') + 1, str.find('-') - 2);
 	date[1] = std::strtod(&slice[0], NULL);
-
 	slice = str.substr(str.find('-') + 4, str.size());
 	date[2] = std::strtod(&slice[0], NULL);
+}
+
+void BitcoinExchange::loadCSV(void) {
+	std::fstream file;
+	file.open("data.csv", std::fstream::in);
+
+	if (file.is_open())
+		this->loadCSVToData(file);	
+	else 
+		throw std::runtime_error("Could not open data.csv for reading!");
 }

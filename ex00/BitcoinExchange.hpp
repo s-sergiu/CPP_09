@@ -3,19 +3,21 @@
 #define BITCOIN_HPP
 
 #include <stdexcept>
-#include <set>
+#include <map>
 #include <fstream>
 #include <cstdlib>
 
 class BitcoinExchange {
-		std::set<int> input;
 	private:
+		std::map<std::string, double> data;
 		BitcoinExchange(const BitcoinExchange &);
 		BitcoinExchange &operator = (const BitcoinExchange &);
-		void checkFileFormatting(std::fstream &) const;
+		void checkFileFormatting(std::fstream &);
+		void loadCSVToData(std::fstream &);
 		void checkFileHeader(std::fstream &) const;
-		void checkDateValues(std::string &) const;
-		void checkNumericValues(std::string &) const;
+		void checkCSVHeader(std::fstream &file) const;
+		void checkDateValues(std::string &, int &) const;
+		void checkNumericValues(std::string &);
 		void checkDateFormat(std::string &) const;
 		void converDateToDouble(double [3], std::string &) const;
 		void checkDay(double [3], int &) const;
@@ -25,6 +27,7 @@ class BitcoinExchange {
 		BitcoinExchange(void);
 		~BitcoinExchange(void);
 		void parse(char *);
+		void loadCSV(void);
 };
 
 #endif
