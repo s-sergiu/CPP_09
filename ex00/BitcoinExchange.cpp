@@ -102,6 +102,7 @@ void BitcoinExchange::checkNumericValues(std::string &str) {
 	char *test = NULL;
 	double number;
 	char buffer[11];
+	std::map<std::string, double>::iterator it;
 
 	if (!str.empty()) {
 		date = str.substr(0 , str.find('|'));
@@ -116,7 +117,11 @@ void BitcoinExchange::checkNumericValues(std::string &str) {
 			return ;
 		}
 		date.copy(buffer,10, 0);
-		double rate = number * data[buffer];
+		(void)data[buffer];
+		it = data.find(buffer);
+		while (it->second == 0)
+			it--;
+		double rate = number * it->second;
 		std::cout<<date<<"=> "<<number<<" = "<<rate<<std::endl;
 	}
 }
