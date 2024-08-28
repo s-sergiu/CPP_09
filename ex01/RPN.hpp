@@ -1,0 +1,9 @@
+
+#ifndef RPN_HPP
+#define RPN_HPP
+
+class RPN {
+	public:
+};
+
+#endif
