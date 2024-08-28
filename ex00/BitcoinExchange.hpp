@@ -5,7 +5,6 @@
 #include <stdexcept>
 #include <set>
 #include <fstream>
-#include <ctime>
 #include <cstdlib>
 
 class BitcoinExchange {
@@ -18,10 +17,10 @@ class BitcoinExchange {
 		void checkDateValues(std::string &) const;
 		void checkNumericValues(std::string &) const;
 		void checkDateFormat(std::string &) const;
-		void convertReadableTime(struct tm *) const;
-		void checkDay(struct tm &, std::string &) const;
-		void checkYear(struct tm &, std::string &) const;
-		void checkMonth(struct tm &, std::string &) const;
+		void converDateToDouble(double [3], std::string &) const;
+		void checkDay(double [3], int &) const;
+		void checkYear(double [3], int &) const;
+		void checkMonth(double [3], int &) const;
 	public:
 		BitcoinExchange(void);
 		~BitcoinExchange(void);

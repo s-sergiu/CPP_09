@@ -60,15 +60,18 @@ void BitcoinExchange::checkFileHeader(std::fstream &file) const {
 
 void BitcoinExchange::checkDateValues(std::string &str) const {
 	std::string chunk;
-	struct tm tp;
+	double date[3];
+	int flag = 0;
 
 	if (!str.empty()) {
 		chunk = str.substr(0, str.find('|'));
-		strptime(&chunk[0] ,"%Y-%m-%d", &tp);
-		convertReadableTime(&tp);
-		checkYear(tp,chunk);
-		checkMonth(tp,chunk);
-		checkDay(tp,chunk);
+		std::cout<<chunk<<std::endl;
+		converDateToDouble(date, chunk);
+		checkYear(date, flag);
+		if (!flag)
+			checkMonth(date, flag);
+		if (!flag)
+			checkDay(date, flag);
 	}
 
 }
@@ -86,30 +89,45 @@ void BitcoinExchange::checkNumericValues(std::string &str) const {
 		if (number < 0)
 			std::cerr<<"Error: not a positive number."<<std::endl;
 	}
-
 }
 
-void BitcoinExchange::checkMonth(struct tm &tp, std::string &str) const {
-	if (tp.tm_mon < 1 || tp.tm_mon > 12)
-		std::cerr<<"Error: bad input => "<<str<<std::endl;
+void BitcoinExchange::checkMonth(double date[3], int &flag) const {
+	if (date[1] < 1 || date[1] > 12) {
+		std::cerr<<"Error: bad input => ";
+		std::cerr<<date[0]<<"-"<<date[1]<<"-"<<date[2]<<std::endl;
+		flag = 1;
+	}
 }
 
-void BitcoinExchange::checkDay(struct tm &tp, std::string &str) const {
+void BitcoinExchange::checkDay(double date[3], int &flag) const {
 	int monthDays[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-	if ((tp.tm_year % 4 == 0 && tp.tm_year % 100 != 0) || (tp.tm_year % 400 == 0))
+	if (((int)date[0] % 4 == 0 && (int)date[0] % 100 != 0) || ((int)date[0] % 400 == 0))
 		monthDays[1] = 29;
-	if (tp.tm_mday < 1 || tp.tm_mday > monthDays[tp.tm_mon - 1])
-		std::cerr<<"Error: bad input => "<<str<<std::endl;
+	if (date[2] < 1 || date[2] > monthDays[(int)date[1] - 1]) {
+		std::cerr<<"Error: bad input => ";
+		std::cerr<<date[0]<<"-"<<date[1]<<"-"<<date[2]<<std::endl;
+		flag = 1;
+	}
 }
 
-void BitcoinExchange::checkYear(struct tm &tp, std::string &str) const {
-	if (tp.tm_year < 1900 || tp.tm_year > 2024)
-		std::cerr<<"Error: bad input => "<<str<<std::endl;
+void BitcoinExchange::checkYear(double date[3], int &flag) const {
+	if (date[0] < 1900 || date[0] > 2024) {
+		std::cerr<<"Error: bad input => ";
+		std::cerr<<date[0]<<"-"<<date[1]<<"-"<<date[2]<<std::endl;
+		flag = 1;
+	}
 }
 
-void BitcoinExchange::convertReadableTime(struct tm *tp) const {
-		tp->tm_year += 1900;
-		tp->tm_mday += 0;
-		tp->tm_mon += 1;
+void BitcoinExchange::converDateToDouble(double date[3], std::string &str) const {
+	std::string slice;
+
+	slice = str.substr(0, str.find('-'));
+	date[0] = std::strtod(&slice[0], NULL);
+
+	slice = str.substr(str.find('-') + 1, str.find('-') - 2);
+	date[1] = std::strtod(&slice[0], NULL);
+
+	slice = str.substr(str.find('-') + 4, str.size());
+	date[2] = std::strtod(&slice[0], NULL);
 }
