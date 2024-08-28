@@ -7,6 +7,7 @@ int main(int argc, char **argv) {
 	BitcoinExchange obj;
 	if (argc == 2)	
 		try {
+			obj.loadCSV();
 			obj.parse(argv[1]);	
 		} catch(std::exception &e) {
 			std::cerr<<"Error: "<<e.what()<<std::endl;
