@@ -31,10 +31,10 @@ void RPN::handleOperator(char operand) {
 }
 
 void RPN::loadStack(void) {
-	std::stringstream str_trim(this->args);
+	std::stringstream ss(this->args);
 	std::string tmp;
 
-	while (str_trim >> tmp)
+	while (ss >> tmp)
 		if (isdigit(*(tmp.begin())))
 			this->stack_a.push(getNumber(tmp));
 		else if (this->stack_a.size() == 1)
