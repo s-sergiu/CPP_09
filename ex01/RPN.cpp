@@ -16,39 +16,32 @@ void RPN::IllegalSymbolCheck(void) {
 	}
 }
 
+void RPN::handleOperator(char operand) {
+	this->buffer = this->stack_a.top();
+	this->stack_a.pop();
+
+	if (operand == '*')
+		this->stack_a.top() *= this->buffer;
+	else if (operand == '-')
+		this->stack_a.top() -= this->buffer;
+	else if (operand == '/')
+		this->stack_a.top() /= this->buffer;
+	else
+		this->stack_a.top() += this->buffer;
+}
+
 void RPN::loadStack(void) {
 	std::stringstream str_trim(this->args);
 	std::string tmp;
 	std::string::iterator it;
-	int temp_nb;
 
 	// 7 3 * 10 -
 	while (str_trim >> tmp) {
 		it = tmp.begin();
 		if (isdigit(*it))
 			this->stack_a.push(getNumber(tmp));
-		else {
-			if (getOperand(tmp) == '*') {
-				temp_nb = this->stack_a.top();
-				this->stack_a.pop();
-				this->stack_a.top() *= temp_nb;
-			}
-			else if (getOperand(tmp) == '-') {
-				temp_nb = this->stack_a.top();
-				this->stack_a.pop();
-				this->stack_a.top() -= temp_nb;
-			}
-			else if (getOperand(tmp) == '/') {
-				temp_nb = this->stack_a.top();
-				this->stack_a.pop();
-				this->stack_a.top() /= temp_nb;
-			}
-			else if (getOperand(tmp) == '+') {
-				temp_nb = this->stack_a.top();
-				this->stack_a.pop();
-				this->stack_a.top() += temp_nb;
-			}
-		}
+		else
+			handleOperator(getOperand(tmp));
 	}
 }
 
