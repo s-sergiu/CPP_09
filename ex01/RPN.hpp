@@ -8,11 +8,6 @@
 #include <sstream>
 #include <cstdlib>
 
-#define ADD +
-#define MIN -
-#define DIV /
-#define MUL *
-
 class RPN {
 	private:
 		int buffer;
