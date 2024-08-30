@@ -38,6 +38,16 @@ void RPN::loadStack(void) {
 				this->stack_a.pop();
 				this->stack_a.top() -= temp_nb;
 			}
+			else if (getOperand(tmp) == '/') {
+				temp_nb = this->stack_a.top();
+				this->stack_a.pop();
+				this->stack_a.top() /= temp_nb;
+			}
+			else if (getOperand(tmp) == '+') {
+				temp_nb = this->stack_a.top();
+				this->stack_a.pop();
+				this->stack_a.top() += temp_nb;
+			}
 		}
 	}
 }
