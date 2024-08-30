@@ -10,10 +10,10 @@ void PmergeMe::parse(char **arg, int argc) {
 	}
 
 
+	std::cout<<"Before: ";
 	for (size_t i = 0; i < vec.size(); i++)
-		std::cout<<vec[i]<<std::endl;
-
-//	IllegalSymbolCheck();
+		std::cout<<vec[i]<<" ";
+	std::cout<<std::endl;
 }
 
 void PmergeMe::IllegalSymbolCheck(void) {

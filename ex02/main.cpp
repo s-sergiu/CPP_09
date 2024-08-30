@@ -4,7 +4,7 @@
 int main (int argc, char **argv) {
 	PmergeMe obj;
 
-	if (argc > 3) {
+	if (argc > 2) {
 		try {
 			obj.parse(argv, argc);
 		} catch (std::exception &e) {
