@@ -18,10 +18,10 @@ class RPN {
 		std::string args;
 		std::stack<Data> stack_a;
 		std::stack<Data> stack_b;
-		void IllegalSymbolCheck(void);
-		void loadStack(void);
 		int getNumber(std::string &str) const;
 		char getOperand(std::string &str) const;
+		void IllegalSymbolCheck(void);
+		void loadStack(void);
 	public:
 		void parse(char *);
 };
