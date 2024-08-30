@@ -33,15 +33,17 @@ void RPN::handleOperator(char operand) {
 void RPN::loadStack(void) {
 	std::stringstream str_trim(this->args);
 	std::string tmp;
-	std::string::iterator it;
 
-	// 7 3 * 10 -
-	while (str_trim >> tmp) {
-		it = tmp.begin();
-		if (isdigit(*it))
+	while (str_trim >> tmp)
+		if (isdigit(*(tmp.begin())))
 			this->stack_a.push(getNumber(tmp));
+		else if (this->stack_a.size() == 1)
+			throw std::runtime_error("stack too small");
 		else
 			handleOperator(getOperand(tmp));
+	if (stack_a.size() > 1) {
+		std::cerr<<"stack size: "<<stack_a.size()<<std::endl;
+		throw std::runtime_error("stack is not empty");
 	}
 }
 
