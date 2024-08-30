@@ -5,7 +5,7 @@ void RPN::parse(char *arg) {
 
 	IllegalSymbolCheck();
 	loadStack();
-	std::cout<<this->stack_a.top().value<<std::endl;
+	std::cout<<this->stack_a.top()<<std::endl;
 }
 
 void RPN::IllegalSymbolCheck(void) {
@@ -20,29 +20,23 @@ void RPN::loadStack(void) {
 	std::stringstream str_trim(this->args);
 	std::string tmp;
 	std::string::iterator it;
-	Data temp;
 	int temp_nb;
 
 	// 7 3 * 10 -
 	while (str_trim >> tmp) {
 		it = tmp.begin();
-		if (isdigit(*it)) {
-			temp.size = 4;
-			temp.value = getNumber(tmp);
-			this->stack_a.push(temp);
-		}
+		if (isdigit(*it))
+			this->stack_a.push(getNumber(tmp));
 		else {
-			temp.size = 1;
-			temp.value = getOperand(tmp);
-			if (temp.value == '*') {
-				temp_nb = this->stack_a.top().value;	
+			if (getOperand(tmp) == '*') {
+				temp_nb = this->stack_a.top();
 				this->stack_a.pop();
-				this->stack_a.top().value *= temp_nb;
+				this->stack_a.top() *= temp_nb;
 			}
-			else if (temp.value == '-') {
-				temp_nb = this->stack_a.top().value;	
+			else if (getOperand(tmp) == '-') {
+				temp_nb = this->stack_a.top();
 				this->stack_a.pop();
-				this->stack_a.top().value -= temp_nb;
+				this->stack_a.top() -= temp_nb;
 			}
 		}
 	}

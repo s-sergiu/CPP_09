@@ -8,16 +8,10 @@
 #include <sstream>
 #include <cstdlib>
 
-struct Data {
-	int size;
-	int value;	
-};
-
 class RPN {
 	private:
 		std::string args;
-		std::stack<Data> stack_a;
-		std::stack<Data> stack_b;
+		std::stack<int> stack_a;
 		int getNumber(std::string &str) const;
 		char getOperand(std::string &str) const;
 		void IllegalSymbolCheck(void);
