@@ -2,13 +2,13 @@ NAME = PmergeMe
 CC = c++
 FLAGS = -std=c++98 -Wall -Werror -Wextra
 
-HEADERS = RPN.hpp
+HEADERS = PmergeMe.hpp
 
 SRC = main.cpp \
-	  RPN.cpp
+	  PmergeMe.cpp
 
 OBJ = main.o \
-	  RPN.o
+	  PmergeMe.o
 
 all:$(NAME)
 
