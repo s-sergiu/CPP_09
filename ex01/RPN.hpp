@@ -18,6 +18,7 @@ class RPN {
 		int buffer;
 		std::string args;
 		std::stack<int> stack_a;
+
 		int getNumber(std::string &str) const;
 		char getOperand(std::string &str) const;
 		void IllegalSymbolCheck(void);
