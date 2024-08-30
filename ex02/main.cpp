@@ -12,6 +12,6 @@ int main (int argc, char **argv) {
 		}
 	}
 	else
-		std::cerr<<"Usage: ./PmergeMe \"3 5 9 7 4\""<<std::endl;
+		std::cerr<<"Usage: ./PmergeMe 3 5 9 7 4"<<std::endl;
 	return 0;
 }
