@@ -1,10 +1,19 @@
 
 #include "PmergeMe.hpp"
 
-void PmergeMe::parse(char *arg) {
-	this->args.assign(arg);
+void PmergeMe::parse(char **arg, int argc) {
+	for (int i = 1; i < argc; i++) {
+		this->args.assign(arg[i]);
+		IllegalSymbolCheck();
+		std::cout<<arg[i]<<std::endl;
+		vec.push_back(static_cast<int>(std::strtod(arg[i], NULL)));
+	}
 
-	IllegalSymbolCheck();
+
+	for (size_t i = 0; i < vec.size(); i++)
+		std::cout<<vec[i]<<std::endl;
+
+//	IllegalSymbolCheck();
 }
 
 void PmergeMe::IllegalSymbolCheck(void) {
