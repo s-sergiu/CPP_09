@@ -38,13 +38,11 @@ void RPN::loadStack(void) {
 		if (isdigit(*(tmp.begin())))
 			this->stack_a.push(getNumber(tmp));
 		else if (this->stack_a.size() == 1)
-			throw std::runtime_error("stack too small");
+			throw std::runtime_error("Incorrect stack structure");
 		else
 			handleOperator(getOperand(tmp));
-	if (stack_a.size() > 1) {
-		std::cerr<<"stack size: "<<stack_a.size()<<std::endl;
-		throw std::runtime_error("stack is not empty");
-	}
+	if (stack_a.size() > 1)
+		throw std::runtime_error("Stack is not empty...");
 }
 
 char RPN::getOperand(std::string &str) const {
