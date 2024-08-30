@@ -2,7 +2,7 @@ NAME = RPN
 CC = c++
 FLAGS = -std=c++98 -Wall -Werror -Wextra
 
-HEADERS = BitcoinExchange.hpp
+HEADERS = RPN.hpp
 
 SRC = main.cpp \
 	  RPN.cpp
