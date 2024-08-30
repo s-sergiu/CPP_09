@@ -1,5 +1,7 @@
 #include "RPN.hpp"
 
+// Constructor
+
 RPN::RPN(void) {
 
 }
@@ -16,6 +18,8 @@ RPN RPN::operator = (const RPN &src) {
 RPN::~RPN(void) {
 
 }
+
+// Class functions
 
 void RPN::parse(char *arg) {
 	this->args.assign(arg);
