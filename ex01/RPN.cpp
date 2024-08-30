@@ -1,5 +1,22 @@
 #include "RPN.hpp"
 
+RPN::RPN(void) {
+
+}
+
+RPN::RPN(const RPN &src) {
+	(void)src;
+}
+
+RPN RPN::operator = (const RPN &src) {
+	(void)src;
+	return *this;
+}
+
+RPN::~RPN(void) {
+
+}
+
 void RPN::parse(char *arg) {
 	this->args.assign(arg);
 
@@ -16,20 +33,6 @@ void RPN::IllegalSymbolCheck(void) {
 	}
 }
 
-void RPN::handleOperator(char operand) {
-	this->buffer = this->stack_a.top();
-	this->stack_a.pop();
-
-	if (operand == '*')
-		this->stack_a.top() *= this->buffer;
-	else if (operand == '-')
-		this->stack_a.top() -= this->buffer;
-	else if (operand == '/')
-		this->stack_a.top() /= this->buffer;
-	else
-		this->stack_a.top() += this->buffer;
-}
-
 void RPN::loadStack(void) {
 	std::stringstream ss(this->args);
 	std::string tmp;
@@ -44,6 +47,21 @@ void RPN::loadStack(void) {
 	if (stack_a.size() > 1)
 		throw std::runtime_error("Stack is not empty...");
 }
+
+void RPN::handleOperator(char operand) {
+	this->buffer = this->stack_a.top();
+	this->stack_a.pop();
+
+	if (operand == '*')
+		this->stack_a.top() *= this->buffer;
+	else if (operand == '-')
+		this->stack_a.top() -= this->buffer;
+	else if (operand == '/')
+		this->stack_a.top() /= this->buffer;
+	else
+		this->stack_a.top() += this->buffer;
+}
+
 
 char RPN::getOperand(std::string &str) const {
 	char operand;

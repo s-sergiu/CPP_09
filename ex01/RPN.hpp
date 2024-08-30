@@ -24,8 +24,12 @@ class RPN {
 		void IllegalSymbolCheck(void);
 		void loadStack(void);
 		void handleOperator(char);
+		RPN(const RPN &src);
+		RPN operator = (const RPN &src);
 	public:
 		void parse(char *);
+		RPN(void);
+		~RPN(void);
 };
 
 #endif
