@@ -20,6 +20,7 @@ class PmergeMe {
 		void createPairs(void);
 		void sortPairs(void);
 		void insertLowerSort(void);
+		std::vector<std::pair<int, int> >::iterator getMinValue(void);
 	public:
 		PmergeMe(void);
 		void parse(char**, int);

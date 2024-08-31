@@ -82,31 +82,44 @@ void PmergeMe::sortPairs(void) {
 	//pairs sorted
 }
 
+std::vector<std::pair<int, int> >::iterator PmergeMe::getMinValue(void) {
+	std::vector<std::pair<int, int> >::iterator min;
+	std::vector<std::pair<int, int> >::iterator it;
+
+	min = pairs.begin();
+	for(it = pairs.begin(); it != pairs.end(); ++it) {
+		if (it->first > min->first)
+			min = it;
+	}
+
+	return min;
+}
+
 void PmergeMe::insertLowerSort(void) {
 	std::vector<std::pair<int, int> >::iterator it;
 	std::vector<std::pair<int, int> >::iterator min;
 
 	sublist.push_back(*last);
 	std::cout<<"min : "<<std::endl;
-	min = std::min_element(pairs.begin(), pairs.end());
+	min = getMinValue();
 	std::cout<<min->first<<std::endl;
 	list.push_back(min->first);
 	sublist.push_back(min->second);
 	pairs.erase(min);
 	std::cout<<"min : "<<std::endl;
-	min = std::min_element(pairs.begin(), pairs.end());
+	min = getMinValue();
 	std::cout<<min->first<<std::endl;
 	list.push_back(min->first);
 	sublist.push_back(min->second);
 	pairs.erase(min);
 	std::cout<<"min : "<<std::endl;
-	min = std::min_element(pairs.begin(), pairs.end());
+	min = getMinValue();
 	std::cout<<min->first<<std::endl;
 	list.push_back(min->first);
 	sublist.push_back(min->second);
 	pairs.erase(min);
 	std::cout<<"min : "<<std::endl;
-	min = std::min_element(pairs.begin(), pairs.end());
+	min = getMinValue();
 	std::cout<<min->first<<std::endl;
 	list.push_back(min->first);
 	sublist.push_back(min->second);
