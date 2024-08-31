@@ -20,6 +20,12 @@ void PmergeMe::parse(char **arg, int argc) {
 	std::cout<<std::endl;
 	createPairs();
 	sortPairs();
+	insertLowerSort();
+
+	for(std::vector<int>::iterator it = list.begin(); it != list.end(); ++it)
+		std::cout<<"list fin: "<<*it<<std::endl;
+	for(std::vector<int>::iterator it = sublist.begin(); it != sublist.end(); ++it)
+		std::cout<<"sublist: "<<*it<<std::endl;
 }
 
 void PmergeMe::illegalSymbolCheck(void) {
@@ -70,8 +76,41 @@ void PmergeMe::sortPairs(void) {
 			it->second = it->first;
 			it->first = temp;
 		}
-		std::cout<<it->first<<std::endl;
-		std::cout<<it->second<<std::endl;
+		std::cout<<"lowest: "<<it->first<<std::endl;
+		std::cout<<"highest: "<<it->second<<std::endl;
 	}
 	//pairs sorted
 }
+
+void PmergeMe::insertLowerSort(void) {
+	std::vector<std::pair<int, int> >::iterator it;
+	std::vector<std::pair<int, int> >::iterator min;
+
+	sublist.push_back(*last);
+	std::cout<<"min : "<<std::endl;
+	min = std::min_element(pairs.begin(), pairs.end());
+	std::cout<<min->first<<std::endl;
+	list.push_back(min->first);
+	sublist.push_back(min->second);
+	pairs.erase(min);
+	std::cout<<"min : "<<std::endl;
+	min = std::min_element(pairs.begin(), pairs.end());
+	std::cout<<min->first<<std::endl;
+	list.push_back(min->first);
+	sublist.push_back(min->second);
+	pairs.erase(min);
+	std::cout<<"min : "<<std::endl;
+	min = std::min_element(pairs.begin(), pairs.end());
+	std::cout<<min->first<<std::endl;
+	list.push_back(min->first);
+	sublist.push_back(min->second);
+	pairs.erase(min);
+	std::cout<<"min : "<<std::endl;
+	min = std::min_element(pairs.begin(), pairs.end());
+	std::cout<<min->first<<std::endl;
+	list.push_back(min->first);
+	sublist.push_back(min->second);
+	pairs.erase(min);
+	//pairs sorted
+}
+
