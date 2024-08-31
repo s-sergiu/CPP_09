@@ -9,13 +9,15 @@
 
 class PmergeMe {
 	private:
+		int *last;
 		std::string args;
-		std::vector<int*> pairs;
+		std::vector<std::pair<int, int> > pairs;
 		std::vector<int> list;
 
 		void illegalSymbolCheck(void);
 		void createPairs(void);
 	public:
+		PmergeMe(void);
 		void parse(char**, int);
 };
 

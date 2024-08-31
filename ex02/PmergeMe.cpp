@@ -1,6 +1,10 @@
 
 #include "PmergeMe.hpp"
 
+PmergeMe::PmergeMe(void) {
+	last = NULL;
+}
+
 void PmergeMe::parse(char **arg, int argc) {
 	for (int i = 1; i < argc; i++) {
 		this->args.assign(arg[i]);
@@ -24,20 +28,32 @@ void PmergeMe::illegalSymbolCheck(void) {
 }
 
 void PmergeMe::createPairs(void) {
-	int temp[2];
+	std::pair<int, int> temp;
+	std::cout<<"last: "<<list.back()<<std::endl;
+
 	while (!list.empty()) {
-		temp[0] = *(list.end());
+		if (list.size() == 1) {
+			last = &list.back();
+			list.pop_back();
+			std::cout<<list[0]<<std::endl;
+			break ;
+		}
+		temp.first = list.back();
 		list.pop_back();
-		temp[1] = *(list.end());
+		temp.second = list.back();
 		list.pop_back();
 		pairs.push_back(temp);
 	}
 
-	std::cout<<"After: ";
+	std::cout<<"After: "<<std::endl;
 	for (size_t i = 0; i < pairs.size(); i++) {
-		std::cout<<"pair"<<std::endl;
-		std::cout<<pairs[i][0]<<" ";
-		std::cout<<pairs[i][1]<<" ";
+		std::cout<<"pair: ";
+		std::cout<<pairs[i].first<<" ";
+		std::cout<<pairs[i].second<<" ";
+		std::cout<<std::endl;
 	}
-	std::cout<<std::endl;
+	if (last) {
+		std::cout<<"last: "<<*last;
+		std::cout<<std::endl;
+	}
 }
