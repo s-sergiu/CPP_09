@@ -19,6 +19,7 @@ void PmergeMe::parse(char **arg, int argc) {
 		std::cout<<list[i]<<" ";
 	std::cout<<std::endl;
 	createPairs();
+	sortPairs();
 }
 
 void PmergeMe::illegalSymbolCheck(void) {
@@ -56,4 +57,21 @@ void PmergeMe::createPairs(void) {
 		std::cout<<"last: "<<*last;
 		std::cout<<std::endl;
 	}
+}
+
+void PmergeMe::sortPairs(void) {
+	std::vector<std::pair<int, int> >::iterator it;
+	int temp;
+	std::cout<<"beginnnn: "<<std::endl;
+	for(it = pairs.begin(); it != pairs.end(); ++it) {
+		// sort pairs
+		if (it->first > it->second) {
+			temp = it->second;	
+			it->second = it->first;
+			it->first = temp;
+		}
+		std::cout<<it->first<<std::endl;
+		std::cout<<it->second<<std::endl;
+	}
+	//pairs sorted
 }

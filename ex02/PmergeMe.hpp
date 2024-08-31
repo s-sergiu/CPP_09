@@ -16,6 +16,7 @@ class PmergeMe {
 
 		void illegalSymbolCheck(void);
 		void createPairs(void);
+		void sortPairs(void);
 	public:
 		PmergeMe(void);
 		void parse(char**, int);
