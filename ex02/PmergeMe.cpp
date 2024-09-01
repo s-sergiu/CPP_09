@@ -8,31 +8,48 @@ PmergeMe::PmergeMe(void) {
 	last = -1;
 }
 
-void PmergeMe::printPairedList(std::vector<std::pair<int, int> > &list) {
-	std::cout<<"--------------size-------------"<<std::endl;
-	std::cout<<"List size: "<<list.size()<<std::endl;
+void PmergeMe::printPairedList(std::vector<std::pair<int, int> > &list, std::string msg) {
+	std::cout<<std::endl;
+	std::cout<<"\e[44m-------------------------------\e[0m"<<std::endl;
+	std::cout<<"\e[102m"<<msg<<"\e[0m"<<std::endl;
+	std::cout<<"\e[44m--------------size-------------\e[0m"<<std::endl;
+	std::cout<<"Paired list size: "<<list.size()<<std::endl;
 	std::vector<std::pair <int, int> >::iterator it;
 
-	std::cout<<"-------------begin-------------"<<std::endl;
+	std::cout<<"\e[44m-------------begin-------------\e[0m"<<std::endl;
 	for(it = list.begin(); it != list.end(); ++it) {
 		std::cout<<it->first<<" ";
 		std::cout<<it->second<<" ";
 		std::cout<<"| ";
 	}
+	if (list.empty())
+		std::cout<<"\e[31mList is empty!\e[0m";
 	std::cout<<std::endl;
-	std::cout<<"--------------end--------------"<<std::endl;
+	if (last != -1)
+		std::cout<<"\e[32mLast is: "<<this->last<<"\e[0m"<<std::endl;
+	std::cout<<"\e[44m--------------end--------------\e[0m"<<std::endl;
+	std::cout<<std::endl;
 }
 
-void PmergeMe::printList(std::vector<int> &list) {
-	std::cout<<"--------------size-------------"<<std::endl;
+void PmergeMe::printList(std::vector<int> &list, std::string msg) {
+	std::cout<<std::endl;
+	std::cout<<"\e[45m-------------------------------\e[0m"<<std::endl;
+	std::cout<<"\e[102m"<<msg<<"\e[0m"<<std::endl;
+	std::cout<<"\e[45m--------------size-------------\e[0m"<<std::endl;
 	std::cout<<"List size: "<<list.size()<<std::endl;
 	std::vector<int>::iterator it;
 
-	std::cout<<"-------------begin-------------"<<std::endl;
+	std::cout<<"\e[45m-------------begin-------------\e[0m"<<std::endl;
 	for(it = list.begin(); it != list.end(); ++it)
 		std::cout<<*it<<" ";
+	if (list.empty())
+		std::cout<<"\e[31mList is empty!\e[0m";
 	std::cout<<std::endl;
-	std::cout<<"--------------end--------------"<<std::endl;
+	if (last != -1) {
+		std::cout<<"\e[32mLast is: "<<this->last<<"\e[0m"<<std::endl;
+	}
+	std::cout<<"\e[45m--------------end--------------\e[0m"<<std::endl;
+	std::cout<<std::endl;
 }
 
 void PmergeMe::parse(char **arg, int argc) {
@@ -41,10 +58,11 @@ void PmergeMe::parse(char **arg, int argc) {
 		illegalSymbolCheck();
 		list.push_back(static_cast<int>(std::strtod(arg[i], NULL)));
 	}
-	printList(list);
+	printList(list, "initial");
 	createPairs();
-	printPairedList(pairs);
 	sortPairs();
+	printList(list, "after created and sort pairs");
+	printPairedList(pairs, "after created and sort pairs");
 	insertLowerSort();
 }
 
@@ -58,10 +76,17 @@ void PmergeMe::extractPairFromEvenList(void) {
 	std::pair<int, int> temp;
 
 	while (!list.empty()) {
-		temp.first = list.front();
-		list.erase(list.begin());
-		temp.second = list.front();
-		list.erase(list.begin());
+		if (*(list.begin()) < *(list.begin() + 1)) {
+			temp.first = list.front();
+			list.erase(list.begin());
+			temp.second = list.front();
+			list.erase(list.begin());
+		} else {
+			temp.second = list.front();
+			list.erase(list.begin());
+			temp.first = list.front();
+			list.erase(list.begin());
+		}
 		pairs.push_back(temp);
 	}
 }
@@ -69,16 +94,20 @@ void PmergeMe::extractPairFromEvenList(void) {
 void PmergeMe::extractPairFromOddList(void) {
 	std::pair<int, int> temp;
 
+	last = list.back();
+	list.pop_back();
 	while (!list.empty()) {
-		if (list.size() == 1) {
-			last = list[0];
-			list.pop_back();
-			break ;
+		if (*(list.begin()) < *(list.begin() + 1)) {
+			temp.first = list.front();
+			list.erase(list.begin());
+			temp.second = list.front();
+			list.erase(list.begin());
+		} else {
+			temp.second = list.front();
+			list.erase(list.begin());
+			temp.first = list.front();
+			list.erase(list.begin());
 		}
-		temp.first = list.back();
-		list.pop_back();
-		temp.second = list.back();
-		list.pop_back();
 		pairs.push_back(temp);
 	}
 }

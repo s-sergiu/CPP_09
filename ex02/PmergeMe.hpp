@@ -22,8 +22,8 @@ class PmergeMe {
 		void sortPairs(void);
 		void insertLowerSort(void);
 		std::vector<std::pair<int, int> >::iterator getMinValue(void);
-		void printList(std::vector<int> &list);
-		void printPairedList(std::vector<std::pair<int, int> > &list);
+		void printList(std::vector<int> &, std::string);
+		void printPairedList(std::vector<std::pair<int, int> > &, std::string);
 	public:
 		PmergeMe(void);
 		void parse(char**, int);
