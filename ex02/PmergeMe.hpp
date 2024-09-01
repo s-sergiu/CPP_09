@@ -6,11 +6,10 @@
 #include <vector>
 #include <cstdlib>
 #include <exception>
-#include <algorithm>
 
 class PmergeMe {
 	private:
-		int *last;
+		int last;
 		std::string args;
 		std::vector<std::pair<int, int> > pairs;
 		std::vector<int> list;
@@ -18,9 +17,13 @@ class PmergeMe {
 
 		void illegalSymbolCheck(void);
 		void createPairs(void);
+		void extractPairFromOddList(void);
+		void extractPairFromEvenList(void);
 		void sortPairs(void);
 		void insertLowerSort(void);
 		std::vector<std::pair<int, int> >::iterator getMinValue(void);
+		void printList(std::vector<int> &list);
+		void printPairedList(std::vector<std::pair<int, int> > &list);
 	public:
 		PmergeMe(void);
 		void parse(char**, int);
