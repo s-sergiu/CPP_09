@@ -2,7 +2,7 @@
 #include "PmergeMe.hpp"
 
 int main (int argc, char **argv) {
-	PmergeMe obj;
+	PmergeMe obj(argc);
 
 	if (argc > 2) {
 		try {
