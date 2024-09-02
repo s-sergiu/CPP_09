@@ -4,15 +4,46 @@
 // Given an unsorted list, group the list into pairs. 
 // If the list is odd, the last element is unpaired.
 
-PmergeMe::PmergeMe(void) {
+PmergeMe::PmergeMe(int argc) {
 	last = -1;
+	elements = argc - 1;
+}
+
+void PmergeMe::endSecondClock(void) {
+	this->end = std::clock();
+	this->elapsed_second = (double) (this->end - this->start) / CLOCKS_PER_SEC;
+}
+
+void PmergeMe::printTime(void) {
+	std::cout<<std::fixed;
+
+	std::cout<<"Time to process a range of "<<elements;
+	std::cout<<" elements with std::[vector_pair] :";
+	std::cout<<"elasped: "<<this->elapsed_first<<std::endl;
+	std::cout<<"Time to process a range of "<<elements;
+	std::cout<<" elements with std::[vector] :";
+	std::cout<<"elasped: "<<this->elapsed_second<<std::endl;
+}
+void PmergeMe::endFirstClock(void) {
+	this->end = std::clock();
+	this->elapsed_first = (double) (this->end - this->start) / CLOCKS_PER_SEC;
+}
+
+void PmergeMe::startClock(void) {
+	this->start = std::clock();
 }
 
 void PmergeMe::printList(vector &list, std::string msg) {
 	vector::iterator it;
 	std::cout<<msg<<":    ";
-	for(it = list.begin(); it != list.end(); ++it)
+	int i = 0;
+	for(it = list.begin(); it != list.end(); ++it) {
 		std::cout<<*it<<" ";
+		if (i++ == 10) {
+			std::cout<<" [...] ";
+			break ;
+		}
+	}
 	std::cout<<std::endl;
 }
 
@@ -23,12 +54,17 @@ void PmergeMe::parse(char **arg, int argc) {
 		list.push_back(static_cast<int>(std::strtod(arg[i], NULL)));
 	}
 	printList(list, "Before");
-	createPairs();
-	sortSinglePairs();
-	mergeSortPair(pairs, 0, pairs.size() - 1);
-	insertLowerSort();
-	insertionSort();
+	startClock();
+		createPairs();
+		sortSinglePairs();
+		mergeSortPair(pairs, 0, pairs.size() - 1);
+	endFirstClock();
+	startClock();
+		separatePairs();
+		insertionSort();
+	endSecondClock();
 	printList(list, "After");
+	printTime();
 }
 
 void PmergeMe::illegalSymbolCheck(void) {
@@ -123,7 +159,7 @@ vector_pair::iterator PmergeMe::getMinValue(void) {
 	return min;
 }
 
-void PmergeMe::insertLowerSort(void) {
+void PmergeMe::separatePairs(void) {
 	vector_pair::iterator it;
 	vector_pair::iterator min;
 
