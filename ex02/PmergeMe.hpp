@@ -32,6 +32,7 @@ class PmergeMe {
 		void printList(vector &, std::string);
 		void printPairedList(vector_pair &, std::string, int);
 		vector_pair fillVector(vector_pair &, int, int);
+		void insertionSort();
 	public:
 		PmergeMe(void);
 		void parse(char**, int);

@@ -69,7 +69,9 @@ void PmergeMe::parse(char **arg, int argc) {
 	insertLowerSort();
 	printList(list, "list");
 	printList(sublist, "sublist");
-	//insertLowerSort();
+	insertionSort();
+	printList(list, "list");
+	printList(sublist, "sublist");
 }
 
 void PmergeMe::illegalSymbolCheck(void) {
@@ -217,5 +219,25 @@ void PmergeMe::mergeSortPair(vector_pair &vec, int start, int end)
 		mergeSortPair(vec, start, middle);
 		mergeSortPair(vec, middle + 1, end);
 		merge(vec, start, middle, end);
+	}
+}
+
+void PmergeMe::insertionSort(void)
+{
+	unsigned int j = 0;
+	unsigned int i = list.size() - 1;
+	vector::iterator it;
+	int a;
+
+	while (!sublist.empty()) {
+		it = sublist.begin();
+
+		a = *it;
+		i = j + 1;
+		while (i > 0 && list[i] < a)
+			i++;
+		j++;
+		list.insert(list.begin() + i,a);
+		sublist.erase(sublist.begin());
 	}
 }
