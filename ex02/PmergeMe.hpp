@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <ctime>
 #include <cstdlib>
 #include <exception>
 
@@ -30,7 +31,6 @@ class PmergeMe {
 		vector_pair::iterator getMinValue(void);
 		vector_pair::iterator getMaxValue(void);
 		void printList(vector &, std::string);
-		void printPairedList(vector_pair &, std::string, int);
 		vector_pair fillVector(vector_pair &, int, int);
 		void insertionSort();
 	public:

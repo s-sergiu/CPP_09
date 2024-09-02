@@ -8,48 +8,11 @@ PmergeMe::PmergeMe(void) {
 	last = -1;
 }
 
-void PmergeMe::printPairedList(vector_pair &list, std::string msg, int level) {
-	std::cout<<"\e[44m-------------------------------\e[0m"<<std::endl;
-	std::cout<<"\e[102m"<<msg<<"\e[0m"<<std::endl;
-	std::cout<<"\e[44m--------------size-------------\e[0m"<<std::endl;
-	std::cout<<"Paired list size: "<<list.size()<<std::endl;
-	vector_pair::iterator it;
-
-	std::cout<<"\e[44m-------------begin-------------\e[0m"<<std::endl;
-	for(it = list.begin(); it != list.end(); ++it) {
-		if (level == 0 || level == 1)
-			std::cout<<it->first<<" ";
-		if (level == 0 || level == 2)
-			std::cout<<it->second<<" ";
-		if (level == 0)
-			std::cout<<"| ";
-	}
-	if (list.empty())
-		std::cout<<"\e[31mList is empty!\e[0m";
-	std::cout<<std::endl;
-	if (last != -1)
-		std::cout<<"\e[32mLast is: "<<this->last<<"\e[0m"<<std::endl;
-	std::cout<<"\e[44m--------------end--------------\e[0m"<<std::endl;
-	std::cout<<std::endl;
-}
-
 void PmergeMe::printList(vector &list, std::string msg) {
-	std::cout<<"\e[45m-------------------------------\e[0m"<<std::endl;
-	std::cout<<"\e[102m"<<msg<<"\e[0m"<<std::endl;
-	std::cout<<"\e[45m--------------size-------------\e[0m"<<std::endl;
-	std::cout<<"List size: "<<list.size()<<std::endl;
 	vector::iterator it;
-
-	std::cout<<"\e[45m-------------begin-------------\e[0m"<<std::endl;
+	std::cout<<msg<<":    ";
 	for(it = list.begin(); it != list.end(); ++it)
 		std::cout<<*it<<" ";
-	if (list.empty())
-		std::cout<<"\e[31mList is empty!\e[0m";
-	std::cout<<std::endl;
-	if (last != -1) {
-		std::cout<<"\e[32mLast is: "<<this->last<<"\e[0m"<<std::endl;
-	}
-	std::cout<<"\e[45m--------------end--------------\e[0m"<<std::endl;
 	std::cout<<std::endl;
 }
 
