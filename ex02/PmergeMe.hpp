@@ -7,13 +7,17 @@
 #include <cstdlib>
 #include <exception>
 
+typedef std::pair<int, int> pair;
+typedef std::vector<int> vector;
+typedef std::vector<pair> vector_pair;
+
 class PmergeMe {
 	private:
 		int last;
 		std::string args;
-		std::vector<std::pair<int, int> > pairs;
-		std::vector<int> list;
-		std::vector<int> sublist;
+		vector_pair pairs;
+		vector list;
+		vector sublist;
 
 		void illegalSymbolCheck(void);
 		void createPairs(void);
@@ -21,13 +25,14 @@ class PmergeMe {
 		void extractPairFromEvenList(void);
 		void sortSinglePairs(void);
 		void mergeSort(void);
-		void merge(std::vector<std::pair<int, int> > &, int, int, int);
-		void mergeSortPair(std::vector<std::pair<int ,int> > &, int, int);
+		void merge(vector_pair &, int, int, int);
+		void mergeSortPair(vector_pair &, int, int);
 		void insertLowerSort(void);
-		std::vector<std::pair<int, int> >::iterator getMinValue(void);
-		std::vector<std::pair<int, int> >::iterator getMaxValue(void);
-		void printList(std::vector<int> &, std::string);
-		void printPairedList(std::vector<std::pair<int, int> > &, std::string, int);
+		vector_pair::iterator getMinValue(void);
+		vector_pair::iterator getMaxValue(void);
+		void printList(vector &, std::string);
+		void printPairedList(vector_pair &, std::string, int);
+		vector_pair fillVector(vector_pair &, int, int);
 	public:
 		PmergeMe(void);
 		void parse(char**, int);
