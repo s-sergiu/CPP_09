@@ -59,19 +59,13 @@ void PmergeMe::parse(char **arg, int argc) {
 		illegalSymbolCheck();
 		list.push_back(static_cast<int>(std::strtod(arg[i], NULL)));
 	}
-	printList(list, "initial");
+	printList(list, "Before");
 	createPairs();
 	sortSinglePairs();
-	printList(list, "after created and sort pairs");
-	printPairedList(pairs, "after created and sort pairs", 0);
 	mergeSortPair(pairs, 0, pairs.size() - 1);
-	printPairedList(pairs, "after merge sort" , 0);
 	insertLowerSort();
-	printList(list, "list");
-	printList(sublist, "sublist");
 	insertionSort();
-	printList(list, "list");
-	printList(sublist, "sublist");
+	printList(list, "After");
 }
 
 void PmergeMe::illegalSymbolCheck(void) {
@@ -234,7 +228,7 @@ void PmergeMe::insertionSort(void)
 
 		a = *it;
 		i = j + 1;
-		while (i > 0 && list[i] < a)
+		while (i < list.size() && list[i] < a)
 			i++;
 		j++;
 		list.insert(list.begin() + i,a);
