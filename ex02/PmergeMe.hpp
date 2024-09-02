@@ -24,7 +24,6 @@ class PmergeMe {
 		void extractPairFromOddList(void);
 		void extractPairFromEvenList(void);
 		void sortSinglePairs(void);
-		void mergeSort(void);
 		void merge(vector_pair &, int, int, int);
 		void mergeSortPair(vector_pair &, int, int);
 		void insertLowerSort(void);

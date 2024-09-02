@@ -178,27 +178,6 @@ void PmergeMe::insertLowerSort(void) {
 		sublist.push_back(last);
 }
 
-void PmergeMe::mergeSort() {
-	int len;
-	vector_pair temp;
-	vector_pair it;
-
-	len = pairs.size() / 2;
-	if (pairs.size() > 1)
-		std::cout<<"we can mergesort"<<std::endl;
-
-	std::cout<<"half len is: "<<len<<std::endl;
-	if (pairs.begin() > pairs.end()) {
-		temp.push_back(pairs.back());
-		temp.push_back(pairs.front());
-	}
-	else {
-		temp.push_back(pairs.front());
-		temp.push_back(pairs.back());
-	}
-	printPairedList(temp, "temp", 0);
-}
-
 vector_pair PmergeMe::fillVector(vector_pair &arg, int size, int start) {
     vector_pair vec(size);
 
@@ -211,7 +190,6 @@ void PmergeMe::merge(vector_pair &arr, int start, int middle, int end) {
 
     vector_pair left;
     vector_pair right;
-
     unsigned int l = 0;
 	unsigned int r = 0;
     unsigned int i = start;
@@ -220,13 +198,10 @@ void PmergeMe::merge(vector_pair &arr, int start, int middle, int end) {
 	right = fillVector(arr, end - middle, middle + 1);
 
     while (l < left.size() && r < right.size()) {
-        if (left[l] <= right[r]) {
-            arr[i] = left[l];
-            l++;
-        } else {
-            arr[i] = right[r];
-            r++;
-        }
+        if (left[l] <= right[r])
+            arr[i] = left[l++];
+		else
+            arr[i] = right[r++];
         i++;
     }
     while (l < left.size())
