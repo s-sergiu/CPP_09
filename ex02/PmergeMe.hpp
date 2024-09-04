@@ -43,8 +43,12 @@ class PmergeMe {
 		void printTime(void);
 		vector_pair fillVector(vector_pair &, int, int);
 		void insertionSort();
+		PmergeMe(void);
+		PmergeMe(const PmergeMe &src);
+		PmergeMe operator = (const PmergeMe &src);
 	public:
 		PmergeMe(int);
+		~PmergeMe(void);
 		void parse(char**, int);
 };
 

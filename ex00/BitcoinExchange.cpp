@@ -9,11 +9,13 @@ BitcoinExchange::BitcoinExchange(void) {
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &src) {
-	(void)src;
+	this->data = src.data;
 }
 
 BitcoinExchange &BitcoinExchange::operator = (const BitcoinExchange &src) {
-	(void)src;
+	if (this != &src) {
+		this->data = src.data;
+	}
 	return (*this);
 }
 

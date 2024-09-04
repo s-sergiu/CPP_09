@@ -4,9 +4,26 @@
 // Given an unsorted list, group the list into pairs. 
 // If the list is odd, the last element is unpaired.
 
+PmergeMe::PmergeMe(void) {
+
+}
+
+PmergeMe::PmergeMe(const PmergeMe &src) {
+	(void)src;
+}
+
+PmergeMe PmergeMe::operator = (const PmergeMe &src) {
+	(void)src;
+	return *this;
+}
+
 PmergeMe::PmergeMe(int argc) {
 	last = -1;
 	elements = argc - 1;
+}
+
+PmergeMe::~PmergeMe(void){
+
 }
 
 void PmergeMe::endSecondClock(void) {
