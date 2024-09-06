@@ -244,6 +244,8 @@ void PmergeMe::insertionSort(void)
 
 		a = *it;
 		i = j + 1;
+		if (last != -1 && sublist.size() == 1)
+			i = 0;
 		while (i < list.size() && list[i] < a)
 			i++;
 		j++;
